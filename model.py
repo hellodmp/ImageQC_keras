@@ -14,8 +14,7 @@ class Model:
         model = Sequential()
         model.add(Dense(500, init='uniform', input_dim=1))
         model.add(Activation('relu'))
-        model.add(Dense(100))
+        model.add(Dense(200))
         model.add(Activation('relu'))
         model.add(Dense(1))
-        model.add(Activation('tanh'))
         return model
