@@ -12,9 +12,9 @@ class Model:
 
     def create_model(self):
         model = Sequential()
-        model.add(Dense(500, init='uniform', input_dim=1))
+        model.add(Dense(100, init='uniform', input_dim=1))
         model.add(Activation('relu'))
-        model.add(Dense(200))
+        model.add(Dense(50))
         model.add(Activation('relu'))
         model.add(Dense(1))
         return model
