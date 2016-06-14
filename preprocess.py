@@ -2,6 +2,7 @@
 
 from sklearn import preprocessing
 import numpy as np
+import h5py
 
 
 def create_data():
@@ -15,5 +16,18 @@ def create_data():
     y_test = np.sin(x_test)+2*x_test
     print x_test, y_test
     return x_train, y_train, x_test, y_test
+
+
+def get_data(train_path, test_path):
+    train_file = h5py.File(train_path)
+    x_train = train_file['features']
+    y_train = train_file['doses']
+
+    test_file = h5py.File(test_path)
+    x_test = test_file['features']
+    y_test = test_file['doses']
+
+    return x_train, y_train, x_test, y_test
+
 
 

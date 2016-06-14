@@ -18,3 +18,12 @@ class Model:
         model.add(Activation('relu'))
         model.add(Dense(1))
         return model
+
+    def image_model(self):
+        model = Sequential()
+        model.add(Dense(500, init='uniform', input_dim=9))
+        model.add(Activation('relu'))
+        model.add(Dense(100))
+        model.add(Activation('relu'))
+        model.add(Dense(1))
+        return model
