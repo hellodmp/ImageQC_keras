@@ -27,9 +27,9 @@ def train(x_train, y_train, x_test, y_test):
     #netModel.fit(x_train, y_train, nb_epoch=64, batch_size=20, verbose=0)
     train_data_generator = batch_generator1(x_train, y_train, 10)
     model.fit_generator(
-		generator=train_data_generator,
-		samples_per_epoch=10,
-		nb_epoch=64)
+        generator=train_data_generator,
+        samples_per_epoch=10,
+        nb_epoch=64)
     out = netModel.predict(x_test, batch_size=10)
     fig, ax = plt.subplots()
     ax.plot(x_test, y_test,'r')
