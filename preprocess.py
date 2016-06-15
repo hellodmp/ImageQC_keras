@@ -43,13 +43,17 @@ def get_data(train_path, test_path):
     return x_train, y_train, x_test, y_test
 
 
-def batch_generator(feature_dataset, dose_dataset, batch_size):
-    Xbatch = np.zeros((batch_size, 9))
+def batch_generator(dataset_path, batch_size):
+    dataset = h5py.File(dataset_path)
+    features = dataset['features']
+    doses = dataset['doses']
+    feature_size = len(features[0])
+    Xbatch = np.zeros((batch_size, feature_size))
     Ybatch = np.zeros(batch_size)
     batch_idx = 0
-    for i in range(0,len(feature_dataset)):
-        Xbatch[batch_idx] = feature_dataset[i]
-        Ybatch[batch_idx] = dose_dataset[i]
+    for i in range(0,len(features)):
+        Xbatch[batch_idx] = features[i]
+        Ybatch[batch_idx] = doses[i]
         batch_idx += 1
         if batch_idx == batch_size:
             batch_idx = 0

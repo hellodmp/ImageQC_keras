@@ -12,12 +12,13 @@ def train(x_train, y_train, x_test, y_test):
     # sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
     # model1.compile(loss='mean_squared_error', optimizer=sgd, metrics=["accuracy"])
     print "STARTING TRAINING"
+    print len(x_train)
     # netModel.fit(x_train, y_train, nb_epoch=64, batch_size=20, verbose=0)
     train_data_generator = preprocess.batch_generator1(x_train, y_train, 10)
     netModel.fit_generator(
         generator=train_data_generator,
-        samples_per_epoch=10,
-        nb_epoch=5000)
+        samples_per_epoch=len(x_train),
+        nb_epoch=50)
 
     out = netModel.predict(x_test, batch_size=10)
     fig, ax = plt.subplots()
@@ -40,11 +41,11 @@ def image_train(x_train, y_train, x_test, y_test):
 
 
 if __name__ == '__main__':
-    x_train, y_train, x_test, y_test = preprocess.create_data()
-    train(x_train, y_train, x_test, y_test)
-    # x_train, y_train, x_test, y_test = preprocess.get_data('./data/rt_data.h5', './data/rt_data.h5')
-    # (x, y) = batch_generator(x_train, y_train,10)
-    # print (x,y)
+    # x_train, y_train, x_test, y_test = preprocess.create_data()
+    # train(x_train, y_train, x_test, y_test)
+    generator = preprocess.batch_generator('./data/rt_data.h5', 10)
+    for (x, y) in generator:
+        print (x, y)
 
 
 
