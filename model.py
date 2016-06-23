@@ -10,20 +10,12 @@ class Model:
     def __init__(self):
         pass
 
-    def create_model(self):
-        model = Sequential()
-        model.add(Dense(100, init='uniform', input_dim=1))
-        model.add(Activation('relu'))
-        model.add(Dense(50))
-        model.add(Activation('relu'))
-        model.add(Dense(1))
-        return model
 
     def image_model(self):
         model = Sequential()
-        model.add(Dense(500, init='uniform', input_dim=9))
+        model.add(Dense(50, init='uniform', input_dim=9))
         model.add(Activation('relu'))
-        model.add(Dense(100))
+        model.add(Dense(10))
         model.add(Activation('relu'))
         model.add(Dense(1))
         return model

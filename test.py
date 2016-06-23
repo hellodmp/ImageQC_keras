@@ -30,22 +30,23 @@ def train(x_train, y_train, x_test, y_test):
     plt.show()
 
 
-def image_train(x_train, y_train, x_test, y_test):
+def image_train(x_train, y_train, x_test):
     netModel = Model().image_model()
     netModel.compile(loss='mean_squared_error', optimizer="rmsprop", metrics=["accuracy"])
     # sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
     # model1.compile(loss='mean_squared_error', optimizer=sgd, metrics=["accuracy"])
     print "STARTING TRAINING"
-    netModel.fit(x_train, y_train, nb_epoch=64, batch_size=20, verbose=0)
+    netModel.fit(x_train, y_train, nb_epoch=10, batch_size=20, verbose=0)
     # model.fit(data, label, batch_size=100,nb_epoch=10,shuffle=True,verbose=1,show_accuracy=True,validation_split=0.2)
+    y_predict = netModel.predict(x_test, batch_size=10)
+    return y_predict
 
 
 if __name__ == '__main__':
-    # x_train, y_train, x_test, y_test = preprocess.create_data()
-    # train(x_train, y_train, x_test, y_test)
-    generator = preprocess.batch_generator('./data/rt_data.h5', 10)
-    for (x, y) in generator:
-        print (x, y)
-
-
+    x_train, y_train, x_test, y_test = preprocess.create_data()
+    y_predict = image_train(x_train, y_train, x_test)
+    file = open('/home/dmp/ct/data/outptv/result.txt')
+    for i in range(0,len(y_predict)):
+        file.writelines(str(y_predict[i])+":"+str(y_test[i]))
+    file.close()
 

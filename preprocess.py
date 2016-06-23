@@ -5,29 +5,28 @@ import numpy as np
 import h5py
 
 
-def create_data(path_list, output_path):
-    output_file = h5py.File(output_path,'w')
+def read_data(dir, path_list):
+    features = []
+    doses = []
     for path in path_list:
-        file = h5py.File(path, 'r')
-        output_file.create_dataset('features', data = file['features'][:])
-        output_file.create_dataset('doses', data = file['doses'][:])
-        file.close()
-    output_file.close()
+        dataset = h5py.File(dir + path, 'r')
+        features.extend(dataset['features'][:])
+        doses.extend(dataset['features'][:])
+        dataset.close()
+    return features, doses
 
 
-
-
-def get_data(train_path, test_path):
-    train_file = h5py.File(train_path)
-    x_train = train_file['features']
-    y_train = train_file['doses']
-
-    test_file = h5py.File(test_path)
-    x_test = test_file['features']
-    y_test = test_file['doses']
+def create_data():
+    dir = "/home/dmp/ct/data/outptv/"
+    train_list = ["V13244.h5", "V13265.h5", "V13275.h5","V13285.h5",
+                  "V13296.h5", "V13317.h5", "V13346.h5", "V16531.h5"]
+    test_list = ["V16552.h5", "V16578.h5"]
+    x_train, y_train = read_data(dir, train_list)
+    x_test, y_test = read_data(dir, test_list)
     return x_train, y_train, x_test, y_test
 
 
+'''
 def batch_generator(dataset_path, batch_size):
     dataset = h5py.File(dataset_path)
     features = dataset['features']
@@ -43,12 +42,16 @@ def batch_generator(dataset_path, batch_size):
         if batch_idx == batch_size:
             batch_idx = 0
             yield (Xbatch, Ybatch)
-
+'''
 
 if __name__ == '__main__':
-    test_list = ["/home/dmp/ct/data/V16552.h5", "/home/dmp/ct/data/V16578.h5"]
-    output_path = "/home/dmp/ct/data/test.h5"
-    create_data(test_list, output_path)
+    dir = "/home/dmp/ct/data/outptv/"
+    train_list = ["V13244.h5", "V13265.h5", "V13275.h5","V13285.h5",
+                  "V13296.h5", "V13317.h5", "V13346.h5", "V16531.h5"]
+    test_list = ["V16552.h5", "V16578.h5"]
+    x_train, y_train = read_data(dir, train_list)
+    x_test, y_test = read_data(dir, test_list)
+    print len(x_train), len(x_test)
 
 
 
