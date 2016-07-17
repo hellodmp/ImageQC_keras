@@ -42,13 +42,15 @@ def read_test_data(dir, path_list, norm_list):
         y_test_list.append(y_test)
     return x_test_list, y_test_list
 
-def create_data():
-    #dir = "/home/dmp/ct/data/outptv/"
-    dir = "/home/dmp/ct/data/inptv/"
+def create_data(dir, path_list):
+    '''
+    dir = "/home/dmp/ct/data/outptv/"
+    #dir = "/home/dmp/ct/data/inptv/"
     path_list = ["V13244.h5", "V13265.h5", "V13275.h5","V13285.h5","V13296.h5",
                   "V13317.h5", "V13346.h5", "V16531.h5","V16552.h5", "V16578.h5"]
+    '''
 
-    norm_list = [5080, 5080, 5080, 5080, 5080, 5080, 5080, 5080, 5080, 5080]
+    norm_list = [5080]*len(path_list)
 
     x_data1, y_data1, x_data2, y_data2, = read_data(dir, path_list, norm_list)
     x_train = np.zeros((len(x_data1), len(x_data1[0])))
